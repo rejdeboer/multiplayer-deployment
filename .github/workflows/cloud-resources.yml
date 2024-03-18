@@ -1,0 +1,36 @@
+name: Push
+
+on: [ push, pull_request ]
+
+env:
+  ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
+  ARM_CLIENT_SECRET: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+  ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}
+  ARM_ACCESS_KEY: ${{ secrets.AZURE_TERRAFORM_ACCESS_KEY }}
+
+jobs:
+  deploy:
+    name: Deployment
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout master
+        uses: actions/checkout@master
+
+      - name: Deploy Terraform
+        uses: ./.github/actions/deploy-terraform
+        with:
+          BACKEND_STATE_KEY: "terraform.tfstate"
+          BACKEND_BUCKET_NAME: "rejdeboertfstate"
+          WORKING_DIRECTORY: ./terraform
+
+      - name: Set AKS context
+        id: set-context
+        uses: azure/aks-set-context@v3
+        with:
+          resource-group: '${{ secrets.RESOURCE_GROUP }}'
+          cluster-name: '${{ secrets.CLUSTER_NAME }}'
+
+      - name: Setup kubectl
+        id: install-kubectl
+        uses: azure/setup-kubectl@v3
