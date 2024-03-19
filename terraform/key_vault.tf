@@ -9,7 +9,7 @@ resource "azurerm_key_vault" "akv" {
   public_network_access_enabled = false
   purge_protection_enabled      = false
 
-  sku_name = "free"
+  sku_name = "standard"
 
   access_policy = [
     {
