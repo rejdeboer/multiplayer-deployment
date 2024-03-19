@@ -35,15 +35,18 @@ jobs:
           tenant-id: ${{ secrets.ARM_TENANT_ID }}
           subscription-id: ${{ secrets. ARM_SUBSCRIPTION_ID }}
 
-      - name: Echo AKS context vars
-        run: 'echo $(terraform -chdir=terraform output -raw resource_group_name)'
+      - name: Set resource group and cluster name
+        id: set_aks_variables
+        run: |
+          echo "::set-output name=resource_group_name::$(terraform -chdir=terraform output -raw resource_group_name)"
+          echo "::set-output name=cluster_name::$(terraform -chdir=terraform output -raw cluster_name)"
 
       - name: Set AKS context
-        id: set-context
+        id: set_context
         uses: azure/aks-set-context@v3
         with:
-          resource-group: ${{$(terraform -chdir=terraform output -raw resource_group_name)}}
-          cluster-name: ${{$(terraform -chdir=terraform output -raw cluster_name)}}
+          resource-group: ${{ steps.set_aks_variables.outputs.resource_group_name }}
+          cluster-name: ${{ steps.set_aks_variables.outputs.cluster_name }}
 
       - name: Setup kubectl
         id: install-kubectl
