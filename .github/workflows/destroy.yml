@@ -24,4 +24,6 @@ jobs:
           BACKEND_STATE_KEY: "terraform.tfstate"
           BACKEND_BUCKET_NAME: "rejdeboertfstate"
           WORKING_DIRECTORY: ./terraform
+        env:
+          TF_VAR_azure_tenant_id: ${{ secrets.ARM_TENANT_ID }}
 
