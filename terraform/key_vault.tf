@@ -28,6 +28,8 @@ resource "azurerm_key_vault" "akv" {
       ]
     }
   ]
+
+  depends_on = [azurerm_kubernetes_cluster.cluster]
 }
 
 resource "azurerm_subnet" "akv" {
@@ -45,7 +47,8 @@ resource "azurerm_network_security_group" "akv" {
     name                       = "Allow-AKV"
     priority                   = 100
     direction                  = "Inbound"
-    access                     = "Tcp"
+    access                     = "Allow"
+    protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "3389"
     source_address_prefix      = "*"
