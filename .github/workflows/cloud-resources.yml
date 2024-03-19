@@ -35,6 +35,9 @@ jobs:
           tenant-id: ${{ secrets.ARM_TENANT_ID }}
           subscription-id: ${{ secrets. ARM_SUBSCRIPTION_ID }}
 
+      - name: Echo AKS context vars
+        run: 'echo $(terraform -chdir ./terraform output -raw resource_group_name)'
+
       - name: Set AKS context
         id: set-context
         uses: azure/aks-set-context@v3
