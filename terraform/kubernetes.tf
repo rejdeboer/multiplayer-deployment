@@ -15,6 +15,10 @@ resource "azurerm_kubernetes_cluster" "cluster" {
   identity {
     type = "SystemAssigned"
   }
+
+  key_vault_secrets_provider {
+    secret_rotation_enabled = true
+  }
 }
 
 resource "azurerm_kubernetes_cluster_node_pool" "mem" {
