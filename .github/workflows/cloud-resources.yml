@@ -25,12 +25,15 @@ jobs:
           BACKEND_BUCKET_NAME: "rejdeboertfstate"
           WORKING_DIRECTORY: ./terraform
 
+      - name: Azure login
+        run: az login
+
       - name: Set AKS context
         id: set-context
         uses: azure/aks-set-context@v3
         with:
-          resource-group: '$(terraform output -raw resource_group_name)'
-          cluster-name: '$(terraform output -raw cluster_name)'
+          resource-group: '$(terraform -chdir ./terraform output -raw resource_group_name)'
+          cluster-name: '$(terraform -chdir ./terraform output -raw cluster_name)'
 
       - name: Setup kubectl
         id: install-kubectl
