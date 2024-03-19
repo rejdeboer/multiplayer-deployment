@@ -16,7 +16,7 @@ resource "azurerm_key_vault" "akv" {
       application_id          = ""
       certificate_permissions = []
       tenant_id               = var.azure_tenant_id
-      object_id               = data.azurerm_kubernetes_cluster.cluster.key_vault_secrets_provider[0].secret_identity[0].object_id
+      object_id               = azurerm_kubernetes_cluster.cluster.key_vault_secrets_provider[0].secret_identity[0].object_id
       key_permissions = [
         "Get",
       ]
@@ -28,8 +28,6 @@ resource "azurerm_key_vault" "akv" {
       ]
     }
   ]
-
-  depends_on = [azurerm_kubernetes_cluster.cluster]
 }
 
 resource "azurerm_subnet" "akv" {
