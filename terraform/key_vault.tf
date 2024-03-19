@@ -54,18 +54,6 @@ resource "azurerm_network_security_group" "akv" {
   }
 }
 
-resource "azurerm_network_interface" "akv" {
-  name                = "akv-nic"
-  location            = azurerm_resource_group.resource_group.location
-  resource_group_name = azurerm_resource_group.resource_group.name
-  ip_configuration {
-    name                          = "akv-nic-ipconfig"
-    subnet_id                     = azurerm_subnet.akv.id
-    private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = null
-  }
-}
-
 resource "azurerm_subnet_network_security_group_association" "akv" {
   subnet_id                 = azurerm_subnet.akv.id
   network_security_group_id = azurerm_network_security_group.akv.id
@@ -77,11 +65,11 @@ resource "azurerm_private_dns_zone" "akv" {
 }
 
 resource "azurerm_private_endpoint" "akv" {
-  name                          = "akv-endpoint"
+  name                          = "pvep-akv"
   resource_group_name           = azurerm_resource_group.resource_group.name
   location                      = azurerm_resource_group.resource_group.location
   subnet_id                     = azurerm_subnet.akv.id
-  custom_network_interface_name = azurerm_network_interface.akv.name
+  custom_network_interface_name = "pvep-akv-nic"
 
   private_service_connection {
     name                           = "akv-private-endpoint"
