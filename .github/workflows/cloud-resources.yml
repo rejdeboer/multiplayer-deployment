@@ -29,8 +29,8 @@ jobs:
         id: set-context
         uses: azure/aks-set-context@v3
         with:
-          resource-group: '${{ steps.terraform.outputs.resource_group_name }}'
-          cluster-name: '${{ steps.terraform.outputs.cluster_name }}'
+          resource-group: '$(terraform output -raw resource_group_name)'
+          cluster-name: '$(terraform output -raw cluster_name)'
 
       - name: Setup kubectl
         id: install-kubectl
