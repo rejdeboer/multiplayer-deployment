@@ -9,6 +9,9 @@ env:
   ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
   ARM_ACCESS_KEY: ${{ secrets.ARM_ACCESS_KEY }}
 
+permissions:
+      id-token: write
+
 jobs:
   deploy:
     name: Deployment
