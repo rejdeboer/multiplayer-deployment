@@ -16,7 +16,7 @@ inputs:
     description: "Additional terraform commands to pass to build"
   TERRAFORM_WRAPPER:
     required: false
-    default: true
+    default: false
     description: "If the terraform output should be wrapped"
 runs:
   using: "composite"

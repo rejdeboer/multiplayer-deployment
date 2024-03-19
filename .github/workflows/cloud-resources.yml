@@ -3,11 +3,11 @@ name: Deploy
 on: [ push, pull_request ]
 
 env:
-  ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
-  ARM_CLIENT_SECRET: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
-  ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-  ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}
-  ARM_ACCESS_KEY: ${{ secrets.AZURE_TERRAFORM_ACCESS_KEY }}
+  ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+  ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+  ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+  ARM_ACCESS_KEY: ${{ secrets.ARM_ACCESS_KEY }}
 
 jobs:
   deploy:
@@ -18,6 +18,7 @@ jobs:
         uses: actions/checkout@master
 
       - name: Deploy Terraform
+        id: terraform
         uses: ./.github/actions/deploy-terraform
         with:
           BACKEND_STATE_KEY: "terraform.tfstate"
@@ -28,8 +29,8 @@ jobs:
         id: set-context
         uses: azure/aks-set-context@v3
         with:
-          resource-group: '${{ secrets.RESOURCE_GROUP }}'
-          cluster-name: '${{ secrets.CLUSTER_NAME }}'
+          resource-group: '${{ steps.terraform.outputs.resource_group_name }}'
+          cluster-name: '${{ steps.terraform.outputs.cluster_name }}'
 
       - name: Setup kubectl
         id: install-kubectl
