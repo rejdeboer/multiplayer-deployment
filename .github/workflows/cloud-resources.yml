@@ -40,8 +40,8 @@ jobs:
       - name: Set resource group and cluster name
         id: set_aks_variables
         run: |
-          echo "::set-output name=resource_group_name::$(terraform -chdir=terraform output -raw resource_group_name)"
-          echo "::set-output name=cluster_name::$(terraform -chdir=terraform output -raw cluster_name)"
+          echo "{resource_group_name}={$(terraform -chdir=terraform output -raw resource_group_name)}" >> $GITHUB_STATE
+          echo "{cluster_name}={$(terraform -chdir=terraform output -raw cluster_name)}" >> $GITHUB_STATE
 
       - name: Set AKS context
         id: set_context
