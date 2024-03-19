@@ -4,6 +4,7 @@ resource "azurerm_kubernetes_cluster" "cluster" {
   location            = azurerm_resource_group.resource_group.location
   resource_group_name = azurerm_resource_group.resource_group.name
   dns_prefix          = "multiplayer-server-cluster"
+  sku_tier            = "Free"
 
   default_node_pool {
     name       = "default"
