@@ -18,7 +18,10 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "resource_group" {
-  name     = "multiplayer-server-rg"
+  name     = "${local.project_name}-rg"
   location = "northeurope"
 }
 
+locals {
+  project_name = "multiplayer-server"
+}

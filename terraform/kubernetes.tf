@@ -1,6 +1,6 @@
 
 resource "azurerm_kubernetes_cluster" "cluster" {
-  name                = "multiplayer-server-api-cluster"
+  name                = "${local.project_name}-api-cluster"
   location            = azurerm_resource_group.resource_group.location
   resource_group_name = azurerm_resource_group.resource_group.name
   dns_prefix          = "multiplayer-server-cluster"

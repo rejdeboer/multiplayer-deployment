@@ -1,4 +1,4 @@
-resource "azurerm_container_registry" "multiplayer_server_acr" {
+resource "azurerm_container_registry" "acr" {
   name                = "rejdeboer"
   sku                 = "Basic"
   resource_group_name = azurerm_resource_group.resource_group.name
