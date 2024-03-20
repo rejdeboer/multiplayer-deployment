@@ -3,32 +3,28 @@ resource "azurerm_key_vault" "akv" {
   location            = azurerm_resource_group.resource_group.location
   resource_group_name = azurerm_resource_group.resource_group.name
   tenant_id           = var.azure_tenant_id
+  sku_name            = "standard"
 
   enabled_for_disk_encryption   = true
   soft_delete_retention_days    = 90
   public_network_access_enabled = true
   purge_protection_enabled      = false
 
-  sku_name = "standard"
-}
-
-resource "azurerm_key_vault_access_policy" "terraform_access" {
-  key_vault_id = azurerm_key_vault.akv.id
-  tenant_id    = var.azure_tenant_id
-  object_id    = data.azurerm_client_config.current.object_id
-
-  secret_permissions = [
-    "Get", "List", "Set", "Purge", "Recover", "Delete"
-  ]
-}
-
-resource "azurerm_key_vault_access_policy" "aks_access" {
-  key_vault_id = azurerm_key_vault.akv.id
-  tenant_id    = var.azure_tenant_id
-  object_id    = azurerm_kubernetes_cluster.cluster.key_vault_secrets_provider[0].secret_identity[0].object_id
-
-  secret_permissions = [
-    "Get", "List"
+  access_policy = [
+    {
+      tenant_id = var.azure_tenant_id
+      object_id = data.azurerm_client_config.current.object_id
+      secret_permissions = [
+        "Get", "List", "Set", "Purge", "Recover", "Delete"
+      ]
+    },
+    {
+      tenant_id = var.azure_tenant_id
+      object_id = azurerm_kubernetes_cluster.cluster.key_vault_secrets_provider[0].secret_identity[0].object_id
+      secret_permissions = [
+        "Get", "List"
+      ]
+    }
   ]
 }
 
