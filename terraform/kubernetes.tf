@@ -4,7 +4,6 @@ resource "azurerm_kubernetes_cluster" "cluster" {
   resource_group_name = azurerm_resource_group.resource_group.name
   dns_prefix          = "${local.project_name}-cluster"
   sku_tier            = "Free"
-  workload_identity_enabled = true
 
   network_profile {
     network_plugin = "kubenet"
