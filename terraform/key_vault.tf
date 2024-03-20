@@ -12,18 +12,26 @@ resource "azurerm_key_vault" "akv" {
 
   access_policy = [
     {
-      tenant_id = var.azure_tenant_id
-      object_id = data.azurerm_client_config.current.object_id
+      application_id = ""
+      tenant_id      = var.azure_tenant_id
+      object_id      = data.azurerm_client_config.current.object_id
       secret_permissions = [
         "Get", "List", "Set", "Purge", "Recover", "Delete"
       ]
+      key_permissions         = []
+      certificate_permissions = []
+      storage_permissions     = []
     },
     {
-      tenant_id = var.azure_tenant_id
-      object_id = azurerm_kubernetes_cluster.cluster.key_vault_secrets_provider[0].secret_identity[0].object_id
+      application_id = ""
+      tenant_id      = var.azure_tenant_id
+      object_id      = azurerm_kubernetes_cluster.cluster.key_vault_secrets_provider[0].secret_identity[0].object_id
       secret_permissions = [
         "Get", "List"
       ]
+      key_permissions         = []
+      certificate_permissions = []
+      storage_permissions     = []
     }
   ]
 }
