@@ -12,7 +12,7 @@ resource "azurerm_key_vault" "akv" {
   sku_name = "standard"
 }
 
-resource "azurerm_key_vault_access_policy" "akv" {
+resource "azurerm_key_vault_access_policy" "terraform_access" {
   key_vault_id = data.azurerm_key_vault.akv.id
   tenant_id    = data.azurerm_key_vault.akv.tenant_id
   object_id    = data.azurerm_client_config.current.object_id
@@ -22,7 +22,7 @@ resource "azurerm_key_vault_access_policy" "akv" {
   ]
 }
 
-resource "azurerm_key_vault_access_policy" "akv" {
+resource "azurerm_key_vault_access_policy" "aks_access" {
   key_vault_id = data.azurerm_key_vault.akv.id
   tenant_id    = data.azurerm_key_vault.akv.tenant_id
   object_id    = data.azurerm_kubernetes_cluster.cluster.key_vault_secrets_provider[0].secret_identity[0].object_id
