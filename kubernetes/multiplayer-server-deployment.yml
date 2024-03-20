@@ -1,0 +1,68 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: multiplayer-server
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 8000
+  selector:
+    app: multiplayer-server
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: multiplayer-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: multiplayer-server
+  template:
+    metadata:
+      labels:
+        app: multiplayer-server
+    spec:
+      containers:
+        - name: multiplayer-server
+          image: rejdeboer.azurecr.io/repo:multiplayer-server 
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "300m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 8000
+          volumeMounts:
+          - name: secrets-store
+            mountPath: "/mnt/secrets-store"
+            readOnly: true
+          env:
+            - name: ENVIRONMENT
+              value: production
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: multiplayer-server-configuration
+                  key: postgres-username
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: multiplayer-server-configuration
+                  key: postgres-password
+            - name: JWT_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: multiplayer-server-configuration
+                  key: jwt-secret-key
+      volumes:
+        - name: secrets-store
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: "secret-provider"
+
