@@ -10,23 +10,25 @@ resource "azurerm_key_vault" "akv" {
   purge_protection_enabled      = false
 
   sku_name = "standard"
+}
 
-  access_policy = [
-    {
-      application_id          = ""
-      certificate_permissions = []
-      tenant_id               = var.azure_tenant_id
-      object_id               = azurerm_kubernetes_cluster.cluster.key_vault_secrets_provider[0].secret_identity[0].object_id
-      key_permissions = [
-        "Get",
-      ]
-      secret_permissions = [
-        "Get",
-      ]
-      storage_permissions = [
-        "Get"
-      ]
-    }
+resource "azurerm_key_vault_access_policy" "akv" {
+  key_vault_id = data.azurerm_key_vault.akv.id
+  tenant_id    = data.azurerm_key_vault.akv.tenant_id
+  object_id    = data.azurerm_client_config.current.object_id
+
+  secret_permissions = [
+    "Get", "List", "Set", "Purge", "Recover", "Delete"
+  ]
+}
+
+resource "azurerm_key_vault_access_policy" "akv" {
+  key_vault_id = data.azurerm_key_vault.akv.id
+  tenant_id    = data.azurerm_key_vault.akv.tenant_id
+  object_id    = data.azurerm_kubernetes_cluster.cluster.key_vault_secrets_provider[0].secret_identity[0].object_id
+
+  secret_permissions = [
+    "Get", "List"
   ]
 }
 
