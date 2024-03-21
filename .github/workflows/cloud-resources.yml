@@ -68,13 +68,13 @@ jobs:
         id: install-kubectl
         uses: azure/setup-kubectl@v3
 
-      - name: Setup Flux CLI
-        uses: fluxcd/flux2/action@main
-        with:
-          version: 'latest'
+      # - name: Setup Flux CLI
+      #   uses: fluxcd/flux2/action@main
+      #   with:
+      #     version: 'latest'
 
       - name: Apply deploy manifests for Flux
         run: |
-          flux create secret git multiplayer-deployment-github --url https://github.com/${{ github.repository }} --username "${{ github.repository_owner }}" --bearer-token "${{ secrets.GH_PAT }}" --namespace default
+          # flux create secret git multiplayer-deployment-github --url https://github.com/${{ github.repository }} --username "${{ github.repository_owner }}" --bearer-token "${{ secrets.GH_PAT }}" --namespace default
           kubectl -n default apply -f gitrepository.yml
           kubectl -n default apply -f kustomization.yml
