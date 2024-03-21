@@ -59,3 +59,8 @@ jobs:
       - name: Setup kubectl
         id: install-kubectl
         uses: azure/setup-kubectl@v3
+
+      - name: Apply deploy manifests for Flux
+        run: |
+          kubectl -n default apply -f gitrepository.yml
+          kubectl -n default apply -f kustomization.yml
