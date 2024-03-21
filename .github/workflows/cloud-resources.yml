@@ -13,9 +13,12 @@ permissions:
       id-token: write
 
 jobs:
-  deploy:
-    name: Deploy
+  terraform:
+    name: Terraform
     runs-on: ubuntu-latest
+    outputs:
+      resource_group_name: $(terraform -chdir=terraform output -raw resource_group_name)
+      cluster_name: $(terraform -chdir=terraform output -raw resource_group_name)
     steps:
       - name: Checkout master
         uses: actions/checkout@master
@@ -32,29 +35,27 @@ jobs:
           TF_VAR_github_repository: ${{ github.event.repository.name }}
           TF_VAR_github_token: ${{ secrets.GH_PAT }}
 
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    needs: terraform
+    steps:
+      - name: Checkout master
+        uses: actions/checkout@master
+
       - name: Azure login
         uses: azure/login@v2
         with:
           client-id: ${{ secrets.ARM_CLIENT_ID }}
           tenant-id: ${{ secrets.ARM_TENANT_ID }}
-          subscription-id: ${{ secrets. ARM_SUBSCRIPTION_ID }}
-
-      - name: Set resource group and cluster name
-        id: set_aks_variables
-        run: |
-          echo "::set-output name=resource_group_name::$(terraform -chdir=terraform output -raw resource_group_name)"
-          echo "::set-output name=cluster_name::$(terraform -chdir=terraform output -raw cluster_name)"
-
-          # TODO: Github recommend using below method, but it doesn't seem to work
-          # echo "{resource_group_name}={$(terraform -chdir=terraform output -raw resource_group_name)}" >> $GITHUB_STATE
-          # echo "{cluster_name}={$(terraform -chdir=terraform output -raw cluster_name)}" >> $GITHUB_STATE
+          subscription-id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
 
       - name: Set AKS context
         id: set_context
         uses: azure/aks-set-context@v3
         with:
-          resource-group: ${{ steps.set_aks_variables.outputs.resource_group_name }}
-          cluster-name: ${{ steps.set_aks_variables.outputs.cluster_name }}
+          resource-group: ${{ needs.terraform.outputs.resource_group_name }}
+          cluster-name: ${{ needs.terraform.outputs.cluster_name }}
 
       - name: Setup kubectl
         id: install-kubectl
@@ -62,5 +63,6 @@ jobs:
 
       - name: Apply deploy manifests for Flux
         run: |
+          ./deploy/install-secret-provider-class.sh
           kubectl -n default apply -f gitrepository.yml
           kubectl -n default apply -f kustomization.yml
