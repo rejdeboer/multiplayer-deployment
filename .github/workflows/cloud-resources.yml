@@ -17,8 +17,8 @@ jobs:
     name: Terraform
     runs-on: ubuntu-latest
     outputs:
-      resource_group_name: $(terraform -chdir=terraform output -raw resource_group_name)
-      cluster_name: $(terraform -chdir=terraform output -raw resource_group_name)
+      resource_group_name: ${{ steps.set_aks_variables.outputs.resource_group_name }}
+      cluster_name: ${{ steps.set_aks_variables.outputs.cluster_name }}
     steps:
       - name: Checkout master
         uses: actions/checkout@master
@@ -34,6 +34,16 @@ jobs:
           TF_VAR_github_org: ${{ github.repository_owner }}
           TF_VAR_github_repository: ${{ github.event.repository.name }}
           TF_VAR_github_token: ${{ secrets.GH_PAT }}
+
+      - name: Set resource group and cluster name
+        id: set_aks_variables
+        run: |
+          echo "::set-output name=resource_group_name::$(terraform -chdir=terraform output -raw resource_group_name)"
+          echo "::set-output name=cluster_name::$(terraform -chdir=terraform output -raw cluster_name)"
+
+          # TODO: Github recommend using below method, but it doesn't seem to work
+          # echo "{resource_group_name}={$(terraform -chdir=terraform output -raw resource_group_name)}" >> $GITHUB_STATE
+          # echo "{cluster_name}={$(terraform -chdir=terraform output -raw cluster_name)}" >> $GITHUB_STATE
 
   deploy:
     name: Deploy
