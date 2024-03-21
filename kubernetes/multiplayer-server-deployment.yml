@@ -49,11 +49,11 @@ spec:
               value: "5432"
             - name: DB_NAME
               value: "multiplayer-server"
-            - name: DB_HOST
-              valueFrom:
-                configMapKeyRef:
-                  key: postgres-url
-                  name: postgres-config
+            # - name: DB_HOST
+            #   valueFrom:
+            #     configMapKeyRef:
+            #       key: postgres-url
+            #       name: postgres-config
             - name: DB_USERNAME
               valueFrom:
                 secretKeyRef:
