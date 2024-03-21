@@ -7,6 +7,6 @@ spec:
   interval: 1m0s
   ref:
     branch: master
-  url: https://github.com/rejdeboer/multiplayer-server-deployment
+  url: https://github.com/rejdeboer/multiplayer-deployment
   secretRef:
     name: multiplayer-deployment-github
