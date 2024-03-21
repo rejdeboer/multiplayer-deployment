@@ -1,3 +1,11 @@
+#!/usr/bin/env bash
+
+echo "Installing AKV secrets provider class"
+
+export identityClientId=$(az identity show -g MC_multiplayer-server-rg_multiplayer-server-cluster_northeurope -n azurekeyvaultsecretsprovider-multiplayer-server-cluster --query clientId -o tsv)
+echo "Secrets provider identity ID: " $identityClientId
+
+cat << EOF | kubectl apply -f -
 apiVersion: secrets-store.csi.x-k8s.io/v1
 kind: SecretProviderClass
 metadata:
@@ -7,7 +15,7 @@ spec:
   parameters:
     usePodIdentity: "false"
     useVMManagedIdentity: "true"
-    userAssignedIdentityID: "4a0fcb3d-b62a-4ff1-abe0-5b2f6041d540" 
+    userAssignedIdentityID: $identityClientId 
     keyvaultName: "multiplayer-server-vault"
     objects:  |
       array:
@@ -29,5 +37,6 @@ spec:
       objectName: postgres-password
     - key: jwt-secret-key
       objectName: jwt-secret-key
-    secretName: multiplayer-server-configuration
+    secretName: multiplayer-server-secrets
     type: Opaque
+EOF
