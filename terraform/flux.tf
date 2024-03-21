@@ -7,6 +7,7 @@ provider "flux" {
   }
   git = {
     url = "ssh://git@github.com/${var.github_org}/${var.github_repository}.git"
+    branch = "master"
     ssh = {
       username    = "git"
       private_key = tls_private_key.flux.private_key_pem
