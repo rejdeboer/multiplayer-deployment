@@ -10,6 +10,13 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "3.96.0"
     }
+    github = {
+      source  = "integrations/github"
+      version = ">=5.18.0"
+    }
+    flux = {
+      source = "fluxcd/flux"
+    }
   }
 }
 
