@@ -10,6 +10,7 @@ apiVersion: secrets-store.csi.x-k8s.io/v1
 kind: SecretProviderClass
 metadata:
   name: secret-provider
+  namespace: default
 spec:
   provider: azure
   parameters:

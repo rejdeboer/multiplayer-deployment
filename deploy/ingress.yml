@@ -2,6 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: multiplayer-server
+  namespace: default
   annotations:
     kubernetes.io/ingress.class: addon-http-application-routing
 spec:
