@@ -6,7 +6,7 @@ provider "flux" {
     cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.cluster.kube_config[0].cluster_ca_certificate)
   }
   git = {
-    url = "ssh://git@github.com/${var.github_org}/${var.github_repository}.git"
+    url    = "ssh://git@github.com/${var.github_org}/${var.github_repository}.git"
     branch = "master"
     ssh = {
       username    = "git"
@@ -17,6 +17,6 @@ provider "flux" {
 
 resource "flux_bootstrap_git" "this" {
   depends_on = [github_repository_deploy_key.this]
-  path       = "kubernetes"
+  path       = "cluster"
 }
 
