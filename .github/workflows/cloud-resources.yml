@@ -13,8 +13,8 @@ permissions:
       id-token: write
 
 jobs:
-  terraform:
-    name: Terraform
+  deploy:
+    name: Deploy
     runs-on: ubuntu-latest
     steps:
       - name: Checkout master
@@ -56,25 +56,11 @@ jobs:
           resource-group: ${{ steps.set_aks_variables.outputs.resource_group_name }}
           cluster-name: ${{ steps.set_aks_variables.outputs.cluster_name }}
 
-  deploy:
-    name: Deploy with Kubernetes and Flux
-    needs: terraform
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout master
-        uses: actions/checkout@master
-
       - name: Setup kubectl
         id: install-kubectl
         uses: azure/setup-kubectl@v3
 
-      # - name: Setup Flux CLI
-      #   uses: fluxcd/flux2/action@main
-      #   with:
-      #     version: 'latest'
-
       - name: Apply deploy manifests for Flux
         run: |
-          # flux create secret git multiplayer-deployment-github --url https://github.com/${{ github.repository }} --username "${{ github.repository_owner }}" --bearer-token "${{ secrets.GH_PAT }}" --namespace default
           kubectl -n default apply -f gitrepository.yml
           kubectl -n default apply -f kustomization.yml
