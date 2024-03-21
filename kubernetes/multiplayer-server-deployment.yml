@@ -43,20 +43,31 @@ spec:
           env:
             - name: ENVIRONMENT
               value: production
+            - name: PORT
+              value: "8000"
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_NAME
+              value: "multiplayer-server"
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: postgres-url
+                  name: postgres-config
             - name: DB_USERNAME
               valueFrom:
                 secretKeyRef:
-                  name: multiplayer-server-configuration
+                  name: multiplayer-server-secrets
                   key: postgres-username
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: multiplayer-server-configuration
+                  name: multiplayer-server-secrets
                   key: postgres-password
             - name: JWT_SECRET_KEY
               valueFrom:
                 secretKeyRef:
-                  name: multiplayer-server-configuration
+                  name: multiplayer-server-secrets
                   key: jwt-secret-key
       volumes:
         - name: secrets-store
