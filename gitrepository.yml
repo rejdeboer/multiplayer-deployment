@@ -8,3 +8,5 @@ spec:
   ref:
     branch: master
   url: https://github.com/rejdeboer/multiplayer-server-deployment
+  secretRef:
+    name: multiplayer-deployment-github
