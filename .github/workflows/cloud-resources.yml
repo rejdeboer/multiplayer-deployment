@@ -75,6 +75,6 @@ jobs:
 
       - name: Apply deploy manifests for Flux
         run: |
-          flux create secret git multiplayer-deployment-github --url https://github.com/${{ github.repository }} --username "${{ github.repository_owner }}" --bearer-token "${{ secrets.GH_TOKEN }}" --namespace default
+          flux create secret git multiplayer-deployment-github --url https://github.com/${{ github.repository }} --username "${{ github.repository_owner }}" --bearer-token "${{ secrets.GH_PAT }}" --namespace default
           kubectl -n default apply -f gitrepository.yml
           kubectl -n default apply -f kustomization.yml
