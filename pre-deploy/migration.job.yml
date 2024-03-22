@@ -8,7 +8,7 @@ spec:
       restartPolicy: Never
       containers:
       - name: migration
-        image: rejdeboer.azurecr.io/multiplayer-server:a60913336f1b5dbaddfa0d107dcb9050d7343440
+        image: rejdeboer.azurecr.io/multiplayer-server:135eeadc5b0e0daf4c490b48a601d5cdb9572747
         command:
           - sh
           - echo "Running migration"
