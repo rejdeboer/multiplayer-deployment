@@ -1,0 +1,35 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: db-migration
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: migration
+        image: rejdeboer.azurecr.io/multiplayer-server:064c9823be3ba094657eb2a41745a7ec7426655a
+        command:
+          - sh
+          - echo "Running migration"
+          - sudo apt-get update && sudo apt-get install postgresql-client -y
+          - go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
+          - export DATABASE_URL=postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}?sslmode=disable
+          - migrate -database ${DATABASE_URL} -path=db/migrations up
+        env:
+          - name: DB_HOST
+            value: database-rw
+          - name: DB_PORT
+            value: 5432
+          - name: DB_NAME
+            value: database
+          - name: DB_USER
+            valueFrom:
+              secretKeyRef:
+                key: username
+                name: database-app
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: password
+                name: database-app

@@ -4,8 +4,6 @@ metadata:
   name: database
   namespace: flux-system
 spec:
-  dependsOn:
-    - pre-deploy
   interval: 10m0s
   sourceRef:
     kind: GitRepository
