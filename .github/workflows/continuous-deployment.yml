@@ -1,4 +1,4 @@
-name: Deploy
+name: Continuous deployment
 
 on: [ push, pull_request ]
 
@@ -41,7 +41,7 @@ jobs:
           echo "::set-output name=resource_group_name::$(terraform -chdir=terraform output -raw resource_group_name)"
           echo "::set-output name=cluster_name::$(terraform -chdir=terraform output -raw cluster_name)"
 
-          # TODO: Github recommend using below method, but it doesn't seem to work
+          # TODO: Github recommends using below method, but it doesn't seem to work
           # echo "{resource_group_name}={$(terraform -chdir=terraform output -raw resource_group_name)}" >> $GITHUB_STATE
           # echo "{cluster_name}={$(terraform -chdir=terraform output -raw cluster_name)}" >> $GITHUB_STATE
 
