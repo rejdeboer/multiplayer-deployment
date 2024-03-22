@@ -71,8 +71,6 @@ jobs:
         id: install-kubectl
         uses: azure/setup-kubectl@v3
 
-      - name: Apply deploy manifests for Flux
+      - name: Install secrets in cluster
         run: |
           ./scripts/install-secret-provider-class.sh
-          kubectl -n default apply -f gitrepository.yml
-          kubectl -n default apply -f kustomization.yml
