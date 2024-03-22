@@ -1,6 +1,11 @@
 name: Continuous deployment
 
-on: [ push, pull_request ]
+on: 
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
 
 env:
   ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
