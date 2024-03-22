@@ -73,6 +73,6 @@ jobs:
 
       - name: Apply deploy manifests for Flux
         run: |
-          ./deploy/install-secret-provider-class.sh
+          ./scripts/install-secret-provider-class.sh
           kubectl -n default apply -f gitrepository.yml
           kubectl -n default apply -f kustomization.yml
