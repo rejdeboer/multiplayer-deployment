@@ -12,6 +12,7 @@ spec:
         image: rejdeboer.azurecr.io/multiplayer-server:135eeadc5b0e0daf4c490b48a601d5cdb9572747
         command:
           - sh
+          - -c
           - echo "Running migration"
           - sudo apt-get update && sudo apt-get install postgresql-client -y
           - go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
