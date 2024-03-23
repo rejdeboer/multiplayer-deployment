@@ -4,4 +4,4 @@ metadata:
   name: postgres-config
   namespace: default
 data:
-  postgres-url: postgres-service
+  postgres-url: postgres
