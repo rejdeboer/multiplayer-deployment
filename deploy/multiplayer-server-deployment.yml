@@ -50,22 +50,19 @@ spec:
             - name: DB_PORT
               value: "5432"
             - name: DB_NAME
-              value: "multiplayer-server"
+              value: "database"
             - name: DB_HOST
-              valueFrom:
-                configMapKeyRef:
-                  key: postgres-url
-                  name: postgres-config
+              value: "database-rw"
             - name: DB_USERNAME
               valueFrom:
                 secretKeyRef:
-                  name: multiplayer-server-secrets
-                  key: postgres-username
+                  name: database-app
+                  key: username
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: multiplayer-server-secrets
-                  key: postgres-password
+                  name: database-aspp
+                  key: password
             - name: JWT_SECRET_KEY
               valueFrom:
                 secretKeyRef:
