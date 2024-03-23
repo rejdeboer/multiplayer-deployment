@@ -8,3 +8,6 @@ spec:
   primaryUpdateStrategy: unsupervised
   storage:
     size: 1Gi
+  bootstrap:
+    initdb:
+      database: multiplayer-server

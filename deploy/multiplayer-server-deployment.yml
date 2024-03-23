@@ -50,7 +50,7 @@ spec:
             - name: DB_PORT
               value: "5432"
             - name: DB_NAME
-              value: "database"
+              value: "multiplayer-server"
             - name: DB_HOST
               value: "database-rw"
             - name: DB_USERNAME
@@ -61,7 +61,7 @@ spec:
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: database-aspp
+                  name: database-app
                   key: password
             - name: JWT_SECRET_KEY
               valueFrom:
