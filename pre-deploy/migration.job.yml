@@ -11,10 +11,8 @@ spec:
       - name: migration
         image: rejdeboer.azurecr.io/multiplayer-server:135eeadc5b0e0daf4c490b48a601d5cdb9572747
         command:
-          - sh
-          - -c
           - echo "Running migration"
-          - sudo apt-get update && sudo apt-get install postgresql-client -y
+          - apk --no-cache add postgresql12-client
           - go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
           - export DATABASE_URL=postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}?sslmode=disable
           - migrate -database ${DATABASE_URL} -path=db/migrations up
