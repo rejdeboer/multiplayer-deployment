@@ -9,6 +9,8 @@ resource "azurerm_postgresql_flexible_server" "this" {
   backup_retention_days        = 7
   geo_redundant_backup_enabled = false
   auto_grow_enabled            = true
+  delegated_subnet_id          = azurerm_subnet.db.id
+  private_dns_zone_id          = azurerm_private_dns_zone.db.id
 
   administrator_login    = random_string.postgres_username.result
   administrator_password = random_password.postgres_password.result
