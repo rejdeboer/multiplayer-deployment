@@ -15,7 +15,7 @@ resource "azurerm_postgresql_flexible_server" "this" {
   version                = "16"
 }
 
-resource "azurerm_postgresql_flexible_database" "this" {
+resource "azurerm_postgresql_flexible_server_database" "this" {
   name        = "${local.project_name}-db"
   server_name = azurerm_postgresql_server.this.name
   charset     = "UTF8"
