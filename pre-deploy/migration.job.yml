@@ -13,11 +13,12 @@ spec:
         command:
           - /bin/sh
           - -c
-          - apk update
-          - apk --no-cache add postgresql-client
-          - CGO_ENABLED=0 GOOS=linux go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
-          - export DATABASE_URL=postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}?sslmode=disable
-          - migrate -database ${DATABASE_URL} -path=db/migrations up
+          - |
+            apk --no-cache add postgresql-client
+            CGO_ENABLED=0 GOOS=linux go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
+            export DATABASE_URL=postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}?sslmode=disable
+            migrate -database ${DATABASE_URL} -path=db/migrations up
+            echo "Migration successfull"
         volumeMounts:
           - name: secrets-store
             mountPath: "/mnt/secrets-store"

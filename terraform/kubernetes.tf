@@ -26,6 +26,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "mem" {
   name                  = "mem"
   node_count            = "1"
   vm_size               = "standard_d11_v2"
+  vnet_subnet_id        = azurerm_subnet.aks.id
 }
 
 
