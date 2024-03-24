@@ -16,10 +16,10 @@ resource "azurerm_postgresql_flexible_server" "this" {
 }
 
 resource "azurerm_postgresql_flexible_server_database" "this" {
-  name        = "${local.project_name}-db"
-  server_name = azurerm_postgresql_server.this.name
-  charset     = "UTF8"
-  collation   = "en_US.utf8"
+  name      = "${local.project_name}-db"
+  server_id = azurerm_postgresql_server.this.id
+  charset   = "UTF8"
+  collation = "en_US.utf8"
 
   # TODO: Set to true for production
   lifecycle {
