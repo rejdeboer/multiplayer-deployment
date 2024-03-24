@@ -47,7 +47,7 @@ resource "azurerm_subnet" "db" {
 }
 
 resource "azurerm_private_dns_zone" "db" {
-  name                = "${local.project_name}.postgres.database.azure.com"
+  name                = "${local.project_name}.private.postgres.database.azure.com"
   resource_group_name = azurerm_resource_group.resource_group.name
 }
 
