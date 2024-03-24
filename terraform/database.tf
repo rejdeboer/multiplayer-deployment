@@ -43,3 +43,16 @@ resource "azurerm_subnet" "db" {
     }
   }
 }
+
+resource "azurerm_private_dns_zone" "db" {
+  name                = "${local.project_name}.postgres.database.azure.com"
+  resource_group_name = azurerm_resource_group.resource_group.name
+}
+
+resource "azurerm_private_dns_zone_virtual_network_link" "db" {
+  name                  = "multiplayerVnetZone.com"
+  private_dns_zone_name = azurerm_private_dns_zone.db.name
+  virtual_network_id    = azurerm_virtual_network.this.id
+  resource_group_name   = azurerm_resource_group.resource_group.name
+  depends_on            = [azurerm_subnet.db]
+}
