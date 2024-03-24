@@ -33,7 +33,6 @@ resource "azurerm_kubernetes_cluster_node_pool" "mem" {
   vnet_subnet_id        = azurerm_subnet.aks.id
 }
 
-
 resource "azurerm_subnet" "aks" {
   name                 = "aks-sn"
   resource_group_name  = azurerm_resource_group.resource_group.name
