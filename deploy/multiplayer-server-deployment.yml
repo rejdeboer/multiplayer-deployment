@@ -52,7 +52,7 @@ spec:
             - name: DB_NAME
               value: "multiplayer-server"
             - name: DB_HOST
-              value: "database-rw"
+              value: "multiplayer-server.postgres.database.azure.com"
             - name: DB_USERNAME
               valueFrom:
                 secretKeyRef:

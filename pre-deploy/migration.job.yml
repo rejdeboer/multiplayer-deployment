@@ -24,7 +24,7 @@ spec:
             readOnly: true
         env:
           - name: DB_HOST
-            value: database-rw
+            value: multiplayer-server.postgres.database.azure.com
           - name: DB_PORT
             value: "5432"
           - name: DB_NAME

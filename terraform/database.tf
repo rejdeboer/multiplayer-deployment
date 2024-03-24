@@ -16,7 +16,7 @@ resource "azurerm_postgresql_flexible_server" "this" {
 }
 
 resource "azurerm_postgresql_flexible_server_database" "this" {
-  name      = "${local.project_name}-db"
+  name      = local.project_name
   server_id = azurerm_postgresql_flexible_server.this.id
   charset   = "UTF8"
   collation = "en_US.utf8"
