@@ -14,14 +14,18 @@ spec:
           - /bin/sh
           - -c
           - |
+            echo "Starting migration"
             apk --no-cache add postgresql-client
             CGO_ENABLED=0 GOOS=linux go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
-            export DATABASE_URL=postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}?sslmode=disable
+            export DATABASE_URL=postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}?sslmode=verify-full&sslrootcert=/etc/ssl/certs/az-root.pem
             migrate -database ${DATABASE_URL} -path=db/migrations up
-            echo "Migration successfull"
+            echo "Migration finished"
         volumeMounts:
           - name: secrets-store
             mountPath: "/mnt/secrets-store"
+            readOnly: true
+          - name: az-root-certificate
+            mountPath: "/etc/ssl/certs"
             readOnly: true
         env:
           - name: DB_HOST
@@ -47,3 +51,6 @@ spec:
             readOnly: true
             volumeAttributes:
               secretProviderClass: "secret-provider"
+        - name: az-root-certificate
+          configMap:
+            name: az-root-certificate
