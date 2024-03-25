@@ -43,7 +43,7 @@ spec:
             mountPath: "/mnt/secrets-store"
             readOnly: true
           - name: az-root-certificate
-            mountPath: "/etc/ssl/certs"
+            mountPath: "/mnt/certificates"
             readOnly: true
           env:
             - name: ENVIRONMENT
@@ -67,7 +67,7 @@ spec:
                   name: multiplayer-server-secrets
                   key: postgres-password
             - name: DB_CERTIFICATE_PATH
-              value: "/etc/ssl/certs/az-root.pem"
+              value: "/mnt/certificates/az-root.pem"
             - name: JWT_SECRET_KEY
               valueFrom:
                 secretKeyRef:
