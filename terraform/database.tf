@@ -29,6 +29,12 @@ resource "azurerm_postgresql_flexible_server_database" "this" {
   }
 }
 
+resource "azurerm_postgresql_flexible_server_configuration" "extensions" {
+  name      = "azure.extensions"
+  server_id = azurerm_postgresql_flexible_server.this.id
+  value     = "UUID-OSSP"
+}
+
 resource "azurerm_subnet" "db" {
   name                 = "db-sn"
   resource_group_name  = azurerm_resource_group.resource_group.name
