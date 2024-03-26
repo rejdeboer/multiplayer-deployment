@@ -11,6 +11,7 @@ resource "azurerm_postgresql_flexible_server" "this" {
   auto_grow_enabled            = true
   delegated_subnet_id          = azurerm_subnet.db.id
   private_dns_zone_id          = azurerm_private_dns_zone.db.id
+  zone                         = "1"
 
   administrator_login    = random_string.postgres_username.result
   administrator_password = random_password.postgres_password.result
