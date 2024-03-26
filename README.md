@@ -7,3 +7,4 @@ It supports the following features:
 - Easy provisioning and destruction of resources using Terraform
 - Integration with Azure Key Vault using Kubernetes CSI driver
 - Database deployment using Azure Postgres flexible server, protected using TLS
+- Monitoring using Prometheus and Grafana
