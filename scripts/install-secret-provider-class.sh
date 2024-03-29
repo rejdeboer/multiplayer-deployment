@@ -2,7 +2,7 @@
 
 echo "Installing AKV secrets provider class"
 
-export identityClientId=$(az identity show -g MC_multiplayer-server-rg_multiplayer-server-cluster_northeurope -n azurekeyvaultsecretsprovider-multiplayer-server-cluster --query clientId -o tsv)
+export identityClientId=$(az identity show -g MC_multiplayer-server-rg_multiplayer-server-cluster_westeurope -n azurekeyvaultsecretsprovider-multiplayer-server-cluster --query clientId -o tsv)
 echo "Secrets provider identity ID: " $identityClientId
 
 cat << EOF | kubectl apply -f -

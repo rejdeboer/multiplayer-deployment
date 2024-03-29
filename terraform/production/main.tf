@@ -3,7 +3,7 @@ terraform {
     resource_group_name  = "storage-account-resource-group"
     storage_account_name = "rejdeboertfstate"
     container_name       = "tfstate"
-    key                  = "terraform.tfstate"
+    key                  = "production.tfstate"
   }
   required_providers {
     azurerm = {
@@ -29,7 +29,7 @@ data "azurerm_client_config" "current" {
 
 resource "azurerm_resource_group" "resource_group" {
   name     = "${local.project_name}-rg"
-  location = "northeurope"
+  location = "westeurope"
 }
 
 locals {
