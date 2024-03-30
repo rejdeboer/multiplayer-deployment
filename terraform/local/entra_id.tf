@@ -12,7 +12,7 @@ resource "azuread_service_principal" "this" {
 }
 
 resource "azuread_application_password" "this" {
-  application_id = azuread_application.this.client_id
+  application_id = azuread_application.this.id
 }
 
 resource "azurerm_role_assignment" "blob_contributor" {
