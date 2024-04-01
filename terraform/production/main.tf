@@ -34,4 +34,6 @@ resource "azurerm_resource_group" "resource_group" {
 
 locals {
   project_name = "multiplayer-server"
+  organization = "rejdeboer"
+  environment  = "local"
 }
