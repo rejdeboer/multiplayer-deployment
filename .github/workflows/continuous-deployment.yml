@@ -1,10 +1,10 @@
 name: Continuous deployment
 
-on: 
+on:
   push:
-    branches:
-      - master
-  pull_request:
+    paths:
+      - ".github/**"
+      - "terraform/**"
   workflow_dispatch:
 
 env:
