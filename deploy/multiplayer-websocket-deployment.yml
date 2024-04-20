@@ -1,0 +1,73 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: multiplayer-websocket
+  namespace: default
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 8000
+  selector:
+    app: multiplayer-websocket
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: multiplayer-websocket
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: multiplayer-websocket
+  template:
+    metadata:
+      labels:
+        app: multiplayer-websocket
+    spec:
+      containers:
+        - name: multiplayer-websocket
+          image: rejdeboer.azurecr.io/multiplayer-websocket:a1aa78f060d2cc2c1936755a26df9679e4dce327
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "300m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 8000
+          env:
+            - name: ENVIRONMENT
+              value: production
+            - name: APP_APPLICATION__PORT
+              value: "8000"
+            - name: APP_DATABASE__PORT
+              value: "5432"
+            - name: APP_DATABASE__DB_NAME
+              value: "multiplayer-server"
+            - name: APP_DATABASE__HOST
+              value: "multiplayer-server.postgres.database.azure.com"
+            - name: APP_DATABASE__USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: multiplayer-server-secrets
+                  key: postgres-username
+            - name: APP_DATABASE__PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: multiplayer-server-secrets
+                  key: postgres-password
+            - name: APP_APPLICATION__SIGNING_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: multiplayer-server-secrets
+                  key: jwt-secret-key
+      volumes:
+        - name: secrets-store
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: "secret-provider"
