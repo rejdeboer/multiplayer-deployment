@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - ingress.yml
   - multiplayer-server-deployment.yml
+  - multiplayer-websocket-deployment.yml
