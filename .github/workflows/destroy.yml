@@ -23,7 +23,7 @@ jobs:
         with:
           BACKEND_STATE_KEY: "terraform.tfstate"
           BACKEND_BUCKET_NAME: "rejdeboertfstate"
-          WORKING_DIRECTORY: ./terraform
+          WORKING_DIRECTORY: ./terraform/production
         env:
           TF_VAR_github_org: ${{ github.repository_owner }}
           TF_VAR_github_repository: ${{ github.event.repository.name }}
