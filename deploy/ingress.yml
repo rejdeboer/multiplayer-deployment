@@ -5,6 +5,7 @@ metadata:
   namespace: default
   annotations:
     kubernetes.io/ingress.class: addon-http-application-routing
+    cert-manager.io/cluster-issuer: letsencrypt 
 spec:
   ingressClassName: nginx
   rules:
@@ -24,3 +25,6 @@ spec:
                 name: multiplayer-server
                 port:
                   number: 80
+  tls:
+  - secretName: letsencrypt-nginx
+    # hosts: # Put hosts here once we create them
