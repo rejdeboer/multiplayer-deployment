@@ -6,9 +6,17 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: addon-http-application-routing
 spec:
+  ingressClassName: nginx
   rules:
     - http:
         paths:
+          - path: /sync
+            pathType: Prefix
+            backend:
+              service:
+                name: multiplayer-websocket
+                port:
+                  number: 80
           - path: /
             pathType: Prefix
             backend:
