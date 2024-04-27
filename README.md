@@ -8,3 +8,4 @@ It supports the following features:
 - Integration with Azure Key Vault using Kubernetes CSI driver
 - Database deployment using Azure Postgres flexible server, protected using TLS
 - Monitoring using Prometheus and Grafana
+- Certificate management with cert-manager
