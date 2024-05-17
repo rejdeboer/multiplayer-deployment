@@ -17,6 +17,10 @@ terraform {
     flux = {
       source = "fluxcd/flux"
     }
+    vercel = {
+      source  = "vercel/vercel"
+      version = "1.10.1"
+    }
   }
 }
 
