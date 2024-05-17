@@ -11,3 +11,8 @@ resource "vercel_project" "this" {
   }
 }
 
+resource "vercel_deployment" "this" {
+  project_id = vercel_project.this.id
+  ref        = "master"
+  production = true
+}
