@@ -9,6 +9,7 @@ env:
   ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
   ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
   ARM_ACCESS_KEY: ${{ secrets.ARM_ACCESS_KEY }}
+  VERCEL_API_TOKEN: ${{ secrets.VERCEL_API_TOKEN }}
 
 jobs:
   deploy:
