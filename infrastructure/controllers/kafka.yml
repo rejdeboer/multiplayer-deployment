@@ -20,7 +20,8 @@ metadata:
   name: kafka
   namespace: kafka
 spec:
-  interval: 30m
+  timeout: 5m
+  interval: 10m
   chart:
     spec:
       chart: strimzi-kafka-operator
