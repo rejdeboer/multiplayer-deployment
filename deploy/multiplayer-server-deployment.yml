@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
         - name: multiplayer-server
-          image: rejdeboer.azurecr.io/multiplayer-server:c05e2d2deea063339cb9c2783dbddd51899ee472
+          image: rejdeboer.azurecr.io/multiplayer-server:c3dc29d3943ddc4e5c3b29dd94b003a27fdcdbcb
           resources:
             requests:
               memory: "256Mi"
