@@ -9,7 +9,7 @@ spec:
       restartPolicy: Never
       containers:
       - name: migration
-        image: rejdeboer.azurecr.io/multiplayer-server:c3dc29d3943ddc4e5c3b29dd94b003a27fdcdbcb
+        image: rejdeboer.azurecr.io/multiplayer-server:b532c440e343862b3c8b87b2d3783dba018160a5
         command:
           - /bin/sh
           - -c
