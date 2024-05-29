@@ -73,6 +73,8 @@ spec:
                 secretKeyRef:
                   name: multiplayer-server-secrets
                   key: jwt-secret-key
+            - name: KAFKA_ENDPOINT
+              value: "kafka-cluster-kafka-bootstrap:9200"
       volumes:
         - name: secrets-store
           csi:
