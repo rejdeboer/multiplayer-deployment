@@ -80,9 +80,10 @@ jobs:
         id: install-kubectl
         uses: azure/setup-kubectl@v3
 
-      - name: Install secrets in cluster
+      - name: Run kubectl pre-deployment scripts
         run: |
           ./scripts/install-secret-provider-class.sh
+          ./scripts/install-crds.sh
 
       - name: Verify cluster reconciliation
         run: |
