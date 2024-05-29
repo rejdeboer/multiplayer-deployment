@@ -24,7 +24,7 @@ spec:
   interval: 10m
   chart:
     spec:
-      chart: helm/eck-elasticsearch/eck-elasticsearch
+      chart: eck-elasticsearch
       version: "0.10.0"
       sourceRef:
         kind: HelmRepository
