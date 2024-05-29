@@ -3,6 +3,7 @@ kind: Kustomization
 namespace: infrastructure
 resources:
   - cluster-issuers.yml
+  - elasticsearch.yml
   - kafka.yml
   - podmonitor.yml
 configMapGenerator:

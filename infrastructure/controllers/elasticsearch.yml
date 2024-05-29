@@ -30,6 +30,4 @@ spec:
         kind: HelmRepository
         name: elasticsearch
         namespace: elasticsearch
-      install:
-        crds: Skip
       interval: 12h
