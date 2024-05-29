@@ -12,7 +12,7 @@ metadata:
   namespace: elasticsearch
 spec:
   interval: 24h
-  url: https://helm.elastic.co/elastic
+  url: https://helm.elastic.co
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
@@ -24,8 +24,8 @@ spec:
   interval: 10m
   chart:
     spec:
-      chart: eck-elasticsearch
-      version: "2.12"
+      chart: helm/eck-elasticsearch/eck-elasticsearch
+      version: "0.10.0"
       sourceRef:
         kind: HelmRepository
         name: elasticsearch
