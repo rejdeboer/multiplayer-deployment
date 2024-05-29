@@ -11,7 +11,7 @@ metadata:
   name: kafka
   namespace: kafka
 spec:
-  interval: 12h
+  interval: 10m
   url: oci://quay.io/repository/strimzi-helm/strimzi-kafka-operator
   ref:
     tag: "0.41.0"
