@@ -6,13 +6,15 @@ metadata:
     toolkit.fluxcd.io/tenant: sre-team
 ---
 apiVersion: source.toolkit.fluxcd.io/v1beta2
-kind: HelmRepository
+kind: OCIRepository
 metadata:
   name: kafka
   namespace: kafka
 spec:
-  interval: 24h
-  url: oci://quay.io/strimzi-helm
+  interval: 12h
+  url: https://quay.io/repository/strimzi-helm/strimzi-kafka-operator
+  ref:
+    tag: "0.41.0"
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
@@ -20,14 +22,10 @@ metadata:
   name: kafka
   namespace: kafka
 spec:
-  timeout: 5m
-  interval: 10m
   chart:
     spec:
-      chart: strimzi-kafka-operator
-      version: "0.x"
-      sourceRef:
-        kind: HelmRepository
+      chartRef:
+        kind: OCIRepository
         name: kafka
         namespace: kafka
-      interval: 12h
+      interval: 10m
