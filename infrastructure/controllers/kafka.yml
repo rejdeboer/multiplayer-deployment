@@ -22,9 +22,8 @@ metadata:
   name: kafka
   namespace: kafka
 spec:
-  spec:
-    chartRef:
-      kind: OCIRepository
-      name: kafka
-      namespace: kafka
-    interval: 10m
+  chartRef:
+    kind: OCIRepository
+    name: kafka
+    namespace: kafka
+  interval: 10m
