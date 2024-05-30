@@ -26,15 +26,8 @@ resource "azuread_service_principal" "external_dns" {
   client_id = azuread_application.external_dns.client_id
 }
 
-resource "random_string" "external_dns_password" {
-  length           = 16
-  special          = true
-  override_special = "/@\" "
-}
-
-resource "azuread_service_principal_password" "external_dns_password" {
+resource "azuread_service_principal_password" "external_dns" {
   service_principal_id = azuread_service_principal.external_dns.id
-  value                = random_string.external_dns_password.result
   end_date_relative    = "240h"
 }
 
