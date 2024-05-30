@@ -85,7 +85,7 @@ jobs:
       - name: Run kubectl pre-deployment scripts
         run: |
           ./scripts/install-secret-provider-class.sh
-          ./scripts/install-crds.sh
+          ./scripts/install-eck-operator.sh
 
       - name: Verify cluster reconciliation
         run: |
