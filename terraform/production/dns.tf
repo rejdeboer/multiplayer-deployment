@@ -17,3 +17,35 @@ resource "cloudflare_record" "name_servers" {
   ttl     = 86400
   proxied = false
 }
+
+resource "azuread_application" "external_dns" {
+  display_name = "spn-external-dns-aks"
+}
+
+resource "azuread_service_principal" "external_dns" {
+  client_id = azuread_application.external_dns.client_id
+}
+
+resource "random_string" "external_dns_password" {
+  length           = 16
+  special          = true
+  override_special = "/@\" "
+}
+
+resource "azuread_service_principal_password" "external_dns_password" {
+  service_principal_id = azuread_service_principal.external_dns.id
+  value                = random_string.external_dns_password.result
+  end_date_relative    = "240h"
+}
+
+resource "azurerm_role_assignment" "external_dns_reader" {
+  scope                = azurerm_resource_group.resource_group.id
+  role_definition_name = "Reader"
+  principal_id         = azuread_service_principal.external_dns.id
+}
+
+resource "azurerm_role_assignment" "external_dns_writer" {
+  scope                = azurerm_dns_zone.this.id
+  role_definition_name = "DNS Zone Contributor"
+  principal_id         = azuread_service_principal.external_dns.id
+}

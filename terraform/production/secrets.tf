@@ -37,3 +37,15 @@ resource "azurerm_key_vault_secret" "application_client_secret" {
   value        = azuread_application_password.this.value
   key_vault_id = azurerm_key_vault.akv.id
 }
+
+resource "azurerm_key_vault_secret" "external_dns_secret" {
+  name = "external-dns-secret"
+  value = jsonencode({
+    "tenantId" : data.azurerm_client_config.current.tenant_id,
+    "subscriptionId" : data.azurerm_client_config.current.subscription_id,
+    "resourceGroup" : azurerm_resource_group.resource_group.name,
+    "aadClientId" : azuread_application.external_dns.client_id,
+    "aadClientSecret" : random_string.external_dns_password.result,
+  })
+  key_vault_id = azurerm_key_vault.akv.id
+}
