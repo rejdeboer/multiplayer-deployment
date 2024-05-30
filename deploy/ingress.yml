@@ -25,5 +25,5 @@ spec:
                 port:
                   number: 80
   tls:
-  - secretName: letsencrypt-nginx
-    # hosts: # Put hosts here once we create them
+    - secretName: letsencrypt-nginx
+      # hosts: # Put hosts here once we create them

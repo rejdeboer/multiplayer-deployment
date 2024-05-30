@@ -75,6 +75,8 @@ spec:
                   key: jwt-secret-key
             - name: KAFKA_ENDPOINT
               value: "kafka-cluster-kafka-bootstrap:9200"
+            - name: ELASTICSEARCH_ENDPOINT
+              value: "https://elastic-cluster-es-http.default.SVC:9200"
       volumes:
         - name: secrets-store
           csi:
