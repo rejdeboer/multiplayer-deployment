@@ -25,7 +25,7 @@ spec:
   chart:
     spec:
       chart: elastic/eck-operator
-      version: "2.13.0"
+      version: "2.12.1"
       sourceRef:
         kind: HelmRepository
         name: elasticsearch
