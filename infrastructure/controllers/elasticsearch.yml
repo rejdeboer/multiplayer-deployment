@@ -30,4 +30,4 @@ spec:
         kind: HelmRepository
         name: elasticsearch
         namespace: elasticsearch
-      interval: 12h
+      interval: 10m
