@@ -29,6 +29,9 @@ spec:
         - |
           objectName: jwt-secret-key
           objectType: secret
+        - |
+          objectName: external-dns-secret
+          objectType: secret
     tenantId: "33775a2a-f4ac-4722-9358-3764d5110404"
   secretObjects:
   - data:
@@ -39,5 +42,10 @@ spec:
     - key: jwt-secret-key
       objectName: jwt-secret-key
     secretName: multiplayer-server-secrets
+    type: Opaque
+  - data:
+    - key: azure.json
+      objectName: external-dns-secret
+    secretName: external-dns-secret
     type: Opaque
 EOF

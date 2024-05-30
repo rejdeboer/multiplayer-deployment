@@ -8,7 +8,8 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - http:
+    - host: api.rejdeboer.com
+      http:
         paths:
           - path: /sync
             pathType: Prefix
@@ -26,4 +27,5 @@ spec:
                   number: 80
   tls:
     - secretName: letsencrypt-nginx
-      # hosts: # Put hosts here once we create them
+      hosts:
+        - api.rejdeboer.com

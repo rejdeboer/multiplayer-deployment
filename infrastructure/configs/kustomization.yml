@@ -4,6 +4,7 @@ namespace: infrastructure
 resources:
   - cluster-issuers.yml
   - elasticsearch.yml
+  - external-dns.yml
   - kafka.yml
   - podmonitor.yml
 configMapGenerator:
