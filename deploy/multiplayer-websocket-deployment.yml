@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
         - name: multiplayer-websocket
-          image: rejdeboer.azurecr.io/multiplayer-websocket:a1aa78f060d2cc2c1936755a26df9679e4dce327
+          image: rejdeboer.azurecr.io/multiplayer-websocket:49c1c95942a43dab3d698ef5730b476639c38948
           resources:
             requests:
               memory: "256Mi"
