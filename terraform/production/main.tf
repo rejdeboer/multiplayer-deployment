@@ -2,7 +2,7 @@ terraform {
   backend "azurerm" {
     resource_group_name  = "storage-account-resource-group"
     storage_account_name = "rejdeboertfstate"
-    container_name       = "prd"
+    container_name       = "production"
     key                  = "infrastructure.tfstate"
   }
   required_providers {
@@ -44,5 +44,5 @@ resource "azurerm_resource_group" "resource_group" {
 locals {
   project_name = "multiplayer-server"
   organization = "rejdeboer"
-  environment  = "production"
+  environment  = "prd"
 }
