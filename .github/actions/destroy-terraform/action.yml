@@ -24,7 +24,7 @@ runs:
 
     - name: Terraform Init
       working-directory: ${{ inputs.WORKING_DIRECTORY }}
-      run: terraform init ${{ inputs.STATE_CONTAINER != "" && format("-backend-config='container_name={0}'", inputs.STATE_CONTAINER) || "" }}
+      run: terraform init ${{ inputs.STATE_CONTAINER != '' && format('-backend-config="container_name={0}"', inputs.STATE_CONTAINER) || '' }}
       shell: bash
 
     - name: Terraform Destroy
