@@ -6,9 +6,8 @@ provider "flux" {
     cluster_ca_certificate = base64decode(data.azurerm_kubernetes_cluster.this.kube_config[0].cluster_ca_certificate)
   }
   git = {
-    url = "ssh://git@github.com/${var.github_org}/${var.github_repository}.git"
-    // TODO: Revert this
-    branch = "feature/external-secrets"
+    url    = "ssh://git@github.com/${var.github_org}/${var.github_repository}.git"
+    branch = "master"
     ssh = {
       username    = "git"
       private_key = tls_private_key.flux.private_key_pem
