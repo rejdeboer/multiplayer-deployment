@@ -52,7 +52,7 @@ jobs:
           # echo "{cluster_name}={$(terraform -chdir=terraform output -raw cluster_name)}" >> $GITHUB_STATE
 
       - name: Bootstrap cluster
-        id: terraform
+        id: bootstrap
         uses: ./.github/actions/deploy-terraform
         with:
           WORKING_DIRECTORY: ./terraform/production
