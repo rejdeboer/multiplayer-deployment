@@ -16,12 +16,11 @@ resource "azurerm_kubernetes_cluster" "cluster" {
     network_plugin = "azure"
   }
 
+  oidc_issuer_enabled       = true
+  workload_identity_enabled = true
+
   identity {
     type = "SystemAssigned"
-  }
-
-  key_vault_secrets_provider {
-    secret_rotation_enabled = true
   }
 }
 
@@ -38,4 +37,28 @@ resource "azurerm_subnet" "aks" {
   resource_group_name  = azurerm_resource_group.resource_group.name
   virtual_network_name = azurerm_virtual_network.this.name
   address_prefixes     = ["10.1.1.0/24"]
+}
+
+# resource "azuread_application" "aks" {
+#   display_name = "${local.project_name}-aks-spn"
+# }
+#
+# resource "azuread_service_principal" "aks" {
+#   client_id                    = azuread_application.aks.client_id
+#   app_role_assignment_required = false
+# }
+
+resource "azurerm_user_assigned_identity" "aks" {
+  location            = azurerm_resource_group.resource_group.location
+  name                = "${local.project_name}-aks"
+  resource_group_name = azurerm_resource_group.resource_group.name
+}
+
+resource "azurerm_federated_identity_credential" "federated_credential" {
+  name                = "fc-${local.project_name}"
+  resource_group_name = azurerm_resource_group.resource_group.name
+  audience            = ["api://AzureADTokenExchange"]
+  issuer              = azurerm_kubernetes_cluster.cluster.oidc_issuer_url
+  subject             = "system:serviceaccount:external-secrets:workload-identity-sa"
+  parent_id           = azurerm_user_assigned_identity.aks.id
 }
