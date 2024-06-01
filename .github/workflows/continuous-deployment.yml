@@ -23,8 +23,8 @@ jobs:
     name: Terraform
     runs-on: ubuntu-latest
     outputs:
-      resource_group_name: ${{ steps.set_aks_variables.outputs.resource_group_name }}
-      cluster_name: ${{ steps.set_aks_variables.outputs.cluster_name }}
+      resource_group_name: ${{ steps.set_aks_vars.outputs.resource_group_name }}
+      cluster_name: ${{ steps.set_aks_vars.outputs.cluster_name }}
     steps:
       - name: Checkout master
         uses: actions/checkout@master
