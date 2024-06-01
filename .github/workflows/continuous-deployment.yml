@@ -51,7 +51,7 @@ jobs:
       - name: Bootstrap cluster
         uses: ./.github/actions/deploy-terraform
         with:
-          WORKING_DIRECTORY: ./terraform/production
+          WORKING_DIRECTORY: ./terraform/cluster-bootstrap
           STATE_CONTAINER: production
         env:
           TF_VAR_cluster_name: ${{ steps.set_aks_vars.outputs.cluster_name }}
