@@ -21,9 +21,6 @@ spec:
             migrate -database "${DATABASE_URL}" -path=db/migrations up
             echo "Migration finished"
         volumeMounts:
-          - name: secrets-store
-            mountPath: "/mnt/secrets-store"
-            readOnly: true
           - name: az-root-certificate
             mountPath: "/mnt/certificates"
             readOnly: true
