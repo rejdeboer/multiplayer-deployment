@@ -59,6 +59,6 @@ resource "azurerm_federated_identity_credential" "federated_credential" {
   resource_group_name = azurerm_resource_group.resource_group.name
   audience            = ["api://AzureADTokenExchange"]
   issuer              = azurerm_kubernetes_cluster.cluster.oidc_issuer_url
-  subject             = "system:serviceaccount:external-secrets:workload-identity-sa"
+  subject             = "system:serviceaccount:default:workload-identity-sa"
   parent_id           = azurerm_user_assigned_identity.aks.id
 }
