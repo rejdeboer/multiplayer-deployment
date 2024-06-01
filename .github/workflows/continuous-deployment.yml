@@ -29,8 +29,7 @@ jobs:
       - name: Checkout master
         uses: actions/checkout@master
 
-      - name: Deploy Terraform
-        id: terraform
+      - name: Deploy infrastructure
         uses: ./.github/actions/deploy-terraform
         with:
           WORKING_DIRECTORY: ./terraform/production
@@ -52,7 +51,6 @@ jobs:
           # echo "{cluster_name}={$(terraform -chdir=terraform output -raw cluster_name)}" >> $GITHUB_STATE
 
       - name: Bootstrap cluster
-        id: bootstrap
         uses: ./.github/actions/deploy-terraform
         with:
           WORKING_DIRECTORY: ./terraform/production

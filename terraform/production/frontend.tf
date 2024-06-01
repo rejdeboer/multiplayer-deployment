@@ -7,7 +7,7 @@ resource "vercel_project" "this" {
 
   git_repository = {
     type = "github"
-    repo = "${var.github_org}/${var.github_repository}"
+    repo = "${var.github_org}/multiplayer-client"
   }
 }
 
