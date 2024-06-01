@@ -17,9 +17,9 @@ provider "flux" {
 
 resource "flux_bootstrap_git" "this" {
   depends_on = [
-    kubernetes_service_account.default
+    kubernetes_service_account.default,
     github_repository_deploy_key.this
   ]
-  path       = "clusters/production"
+  path = "clusters/production"
 }
 
