@@ -2,7 +2,7 @@ terraform {
   backend "azurerm" {
     resource_group_name  = "storage-account-resource-group"
     storage_account_name = "rejdeboertfstate"
-    container_name       = "production"
+    container_name       = "prd"
     key                  = "infrastructure.tfstate"
   }
   required_providers {
