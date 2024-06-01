@@ -38,7 +38,7 @@ jobs:
           TF_VAR_cloudflare_zone_id: ${{ secrets.CLOUDFLARE_ZONE_ID }}
 
       - name: Set resource group and cluster name
-        id: set_aks_variables
+        id: set_aks_vars
         run: |
           echo "::set-output name=resource_group_name::$(terraform -chdir=terraform/production output -raw resource_group_name)"
           echo "::set-output name=cluster_name::$(terraform -chdir=terraform/production output -raw cluster_name)"
