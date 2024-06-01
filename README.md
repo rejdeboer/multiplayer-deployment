@@ -5,7 +5,7 @@ It supports the following features:
 
 - Automatated reconciliation using Flux CD
 - Easy provisioning and destruction of resources using Terraform
-- Integration with Azure Key Vault using Kubernetes CSI driver
+- Integration with Azure Key Vault using External Secrets Operator
 - Database deployment using Azure Postgres flexible server, protected using TLS
 - Monitoring using Prometheus and Grafana
 - Certificate management with cert-manager
