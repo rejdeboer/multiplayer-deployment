@@ -1,12 +1,8 @@
 name: "deploy terraform"
 description: "Performs a deploy with terraform"
 inputs:
-  BACKEND_BUCKET_NAME:
-    required: true
-    description: "The bucket name to store the state"
-  BACKEND_STATE_KEY:
-    required: true
-    description: "The state key in which the state is stored"
+  STATE_CONTAINER:
+    default: ""
   WORKING_DIRECTORY:
     required: true
     description: "The working directory"
@@ -28,7 +24,7 @@ runs:
 
     - name: Terraform Init
       working-directory: ${{ inputs.WORKING_DIRECTORY }}
-      run: terraform init
+      run: terraform init ${{ inputs.STATE_CONTAINER != '' && format('-backend-config="container_name={0}"', inputs.STATE_CONTAINER) || '' }}
       shell: bash
 
     - name: Terraform Destroy

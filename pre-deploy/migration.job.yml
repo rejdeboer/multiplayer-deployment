@@ -21,9 +21,6 @@ spec:
             migrate -database "${DATABASE_URL}" -path=db/migrations up
             echo "Migration finished"
         volumeMounts:
-          - name: secrets-store
-            mountPath: "/mnt/secrets-store"
-            readOnly: true
           - name: az-root-certificate
             mountPath: "/mnt/certificates"
             readOnly: true
@@ -45,12 +42,6 @@ spec:
                 name: multiplayer-server-secrets
                 key: postgres-password
       volumes:
-        - name: secrets-store
-          csi:
-            driver: secrets-store.csi.k8s.io
-            readOnly: true
-            volumeAttributes:
-              secretProviderClass: "secret-provider"
         - name: az-root-certificate
           configMap:
             name: az-root-certificate

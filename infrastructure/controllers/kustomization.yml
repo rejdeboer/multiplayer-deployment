@@ -5,3 +5,5 @@ resources:
   - external-secrets.yml
   - ingress-nginx.yml
   - kafka.yml
+  - kube-prometheus-stack
+  - loki-stack

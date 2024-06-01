@@ -2,8 +2,7 @@ terraform {
   backend "azurerm" {
     resource_group_name  = "storage-account-resource-group"
     storage_account_name = "rejdeboertfstate"
-    container_name       = "production"
-    key                  = "infrastructure.tfstate"
+    key                  = "cluster.tfstate"
   }
   required_providers {
     azurerm = {
@@ -18,13 +17,9 @@ terraform {
       source  = "fluxcd/flux"
       version = ">=1.3.0"
     }
-    vercel = {
-      source  = "vercel/vercel"
-      version = "1.10.1"
-    }
-    cloudflare = {
-      source  = "cloudflare/cloudflare"
-      version = "4.34.0"
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "2.30.0"
     }
   }
 }
@@ -36,13 +31,3 @@ provider "azurerm" {
 data "azurerm_client_config" "current" {
 }
 
-resource "azurerm_resource_group" "resource_group" {
-  name     = local.project_name
-  location = "northeurope"
-}
-
-locals {
-  project_name = "multiplayer-server"
-  organization = "rejdeboer"
-  environment  = "prd"
-}

@@ -66,6 +66,6 @@ spec:
               mountPath: /etc/kubernetes
               readOnly: true
       volumes:
-        - name: multiplayer-server-secrets
+        - name: external-dns-secret
           secret:
-            secretName: multiplayer-server-secrets
+            secretName: external-dns-secret

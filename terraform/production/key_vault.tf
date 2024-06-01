@@ -1,5 +1,5 @@
 resource "azurerm_key_vault" "akv" {
-  name                = "${local.project_name}-vault"
+  name                = "${local.project_name}-${local.environment}"
   location            = azurerm_resource_group.resource_group.location
   resource_group_name = azurerm_resource_group.resource_group.name
   tenant_id           = data.azurerm_client_config.current.tenant_id
@@ -25,7 +25,7 @@ resource "azurerm_key_vault" "akv" {
     {
       application_id = ""
       tenant_id      = data.azurerm_client_config.current.tenant_id
-      object_id      = azurerm_kubernetes_cluster.cluster.key_vault_secrets_provider[0].secret_identity[0].object_id
+      object_id      = azurerm_user_assigned_identity.aks.principal_id
       secret_permissions = [
         "Get", "List"
       ]
