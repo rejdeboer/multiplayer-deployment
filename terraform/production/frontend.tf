@@ -15,4 +15,9 @@ resource "vercel_deployment" "this" {
   project_id = vercel_project.this.id
   ref        = "master"
   production = true
+
+  environment = {
+    NEXT_PUBLIC_SERVER_ENDPOINT    = "https://api.rejdeboer.com"
+    NEXT_PUBLIC_WEBSOCKET_ENDPOINT = "https://api.rejdeboer.com/sync"
+  }
 }
