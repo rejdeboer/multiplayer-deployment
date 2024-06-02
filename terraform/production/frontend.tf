@@ -21,3 +21,19 @@ resource "vercel_deployment" "this" {
     NEXT_PUBLIC_WEBSOCKET_ENDPOINT = "https://api.rejdeboer.com/sync"
   }
 }
+
+resource "azurerm_dns_cname_record" "frontend" {
+  name                = "www"
+  zone_name           = azurerm_dns_zone.example.name
+  resource_group_name = azurerm_resource_group.example.name
+  ttl                 = 300
+  record              = vercel_deployment.this.domains[0]
+}
+
+resource "azurerm_dns_cname_record" "frontend" {
+  name                = "@"
+  zone_name           = azurerm_dns_zone.example.name
+  resource_group_name = azurerm_resource_group.example.name
+  ttl                 = 300
+  record              = vercel_deployment.this.domains[0]
+}
