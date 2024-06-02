@@ -29,11 +29,3 @@ resource "azurerm_dns_cname_record" "www" {
   ttl                 = 300
   record              = vercel_deployment.this.domains[0]
 }
-
-resource "azurerm_dns_cname_record" "frontend" {
-  name                = "@"
-  zone_name           = azurerm_dns_zone.this.name
-  resource_group_name = azurerm_resource_group.resource_group.name
-  ttl                 = 300
-  record              = vercel_deployment.this.domains[0]
-}
