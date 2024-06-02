@@ -39,15 +39,6 @@ resource "azurerm_subnet" "aks" {
   address_prefixes     = ["10.1.1.0/24"]
 }
 
-# resource "azuread_application" "aks" {
-#   display_name = "${local.project_name}-aks-spn"
-# }
-#
-# resource "azuread_service_principal" "aks" {
-#   client_id                    = azuread_application.aks.client_id
-#   app_role_assignment_required = false
-# }
-
 resource "azurerm_user_assigned_identity" "aks" {
   location            = azurerm_resource_group.resource_group.location
   name                = "${local.project_name}-aks"
