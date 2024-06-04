@@ -30,6 +30,10 @@ jobs:
       - name: Checkout master
         uses: actions/checkout@master
 
+      - name: Get branch names
+        id: branch-names
+        uses: tj-actions/branch-names@v8
+
       - name: Deploy infrastructure
         uses: ./.github/actions/deploy-terraform
         with:
@@ -61,6 +65,7 @@ jobs:
           TF_VAR_github_org: ${{ github.repository_owner }}
           TF_VAR_github_repository: ${{ github.event.repository.name }}
           TF_VAR_github_token: ${{ secrets.GH_PAT }}
+          TF_VAR_github_branch: ${{ steps.branch-names.outputs.current_branch }}
 
   deploy:
     name: Deploy
