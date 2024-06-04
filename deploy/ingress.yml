@@ -11,13 +11,13 @@ spec:
     - host: api.rejdeboer.com
       http:
         paths:
-          - path: /sync
-            pathType: Prefix
-            backend:
-              service:
-                name: multiplayer-websocket
-                port:
-                  number: 80
+          # - path: /sync
+          #   pathType: Prefix
+          #   backend:
+          #     service:
+          #       name: multiplayer-websocket
+          #       port:
+          #         number: 80
           - path: /
             pathType: Prefix
             backend:
