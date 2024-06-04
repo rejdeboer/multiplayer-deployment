@@ -26,6 +26,6 @@ spec:
                 port:
                   number: 80
   tls:
-    - secretName: letsencrypt-nginx
+    - secretName: letsencrypt-nginx-tls
       hosts:
         - api.rejdeboer.com

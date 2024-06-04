@@ -9,7 +9,7 @@ spec:
     # The server is replaced in /clusters/<environment>/infrastructure.yaml
     server: https://acme-staging-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
-      name: letsencrypt-nginx
+      name: issuer-account-key
     solvers:
       - dns01:
           cloudflare:
