@@ -7,7 +7,7 @@ resource "cloudflare_record" "frontend" {
   name    = "www"
   value   = vercel_deployment.this.domains[0]
   type    = "CNAME"
-  ttl     = 86400
+  ttl     = 1
   proxied = true
 }
 
