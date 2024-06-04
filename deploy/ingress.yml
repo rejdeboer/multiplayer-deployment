@@ -4,7 +4,7 @@ metadata:
   name: multiplayer-server
   namespace: default
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt 
+    cert-manager.io/issuer: letsencrypt 
 spec:
   ingressClassName: nginx
   rules:
