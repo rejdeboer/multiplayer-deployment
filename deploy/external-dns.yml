@@ -50,17 +50,17 @@ spec:
       serviceAccountName: external-dns
       containers:
         - name: external-dns
-          image: registry.k8s.io/external-dns/external-dns:v0.13.2
+          image: registry.k8s.io/external-dns/external-dns:v0.14.2
           args:
             - --source=service
             - --source=ingress
-            - --provider=azure
+            - --provider=cloudflare
+            - --domain-filter=rejdeboer.com
+            - --cloudflare-proxied
             - --txt-prefix=externaldns-
-          volumeMounts:
-            - name: external-dns-secret
-              mountPath: /etc/kubernetes
-              readOnly: true
-      volumes:
-        - name: external-dns-secret
-          secret:
-            secretName: external-dns-secret
+          env:
+            - name: CF_API_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: external-dns-secret
+                  key: cloudflare-api-token
