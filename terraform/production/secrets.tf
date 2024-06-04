@@ -38,14 +38,8 @@ resource "azurerm_key_vault_secret" "application_client_secret" {
   key_vault_id = azurerm_key_vault.akv.id
 }
 
-resource "azurerm_key_vault_secret" "external_dns_secret" {
-  name = "external-dns-secret"
-  value = jsonencode({
-    "tenantId" : data.azurerm_client_config.current.tenant_id,
-    "subscriptionId" : data.azurerm_client_config.current.subscription_id,
-    "resourceGroup" : azurerm_resource_group.resource_group.name,
-    "aadClientId" : azuread_application.external_dns.client_id,
-    "aadClientSecret" : azuread_service_principal_password.external_dns.value
-  })
+resource "azurerm_key_vault_secret" "cloudflare_api_token" {
+  name         = "cloudflare-api-token"
+  value        = var.cloudflare_api_token
   key_vault_id = azurerm_key_vault.akv.id
 }
