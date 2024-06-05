@@ -11,11 +11,11 @@ spec:
     privateKeySecretRef:
       name: issuer-account-key
     solvers:
-      - selector:
-          dnsZones:
-            - 'rejdeboer.com'
+      # - selector:
+      #     dnsZones:
+      #       - 'rejdeboer.com'
         dns01:
-          cnameStrategy: Follow
+          # cnameStrategy: Follow
           cloudflare:
             apiTokenSecretRef:
               name: cloudflare-secret
