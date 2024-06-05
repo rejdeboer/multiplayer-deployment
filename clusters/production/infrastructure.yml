@@ -37,7 +37,7 @@ spec:
           path: /spec/acme/server
           value: https://acme-v02.api.letsencrypt.org/directory
       target:
-        kind: ClusterIssuer
+        kind: Issuer
         name: letsencrypt
     - patch: |
         - op: replace
