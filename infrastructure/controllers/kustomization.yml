@@ -4,6 +4,6 @@ resources:
   - cert-manager.yml
   - external-secrets.yml
   - ingress-nginx.yml
-  - kafka.yml
-  - kube-prometheus-stack
-  - loki-stack
+  # - kafka.yml
+  # - kube-prometheus-stack
+  # - loki-stack

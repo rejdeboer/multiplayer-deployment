@@ -4,4 +4,4 @@ resources:
   - external-dns.yml
   - ingress.yml
   - multiplayer-server-deployment.yml
-  - multiplayer-websocket-deployment.yml
+  # - multiplayer-websocket-deployment.yml

@@ -33,6 +33,7 @@ spec:
   values:
     controller:
       service:
-        type: "NodePort"
+        type: LoadBalancer
+        externalTrafficPolicy: Local
     admissionWebhooks:
       enabled: false

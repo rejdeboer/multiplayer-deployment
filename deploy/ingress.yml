@@ -4,20 +4,21 @@ metadata:
   name: multiplayer-server
   namespace: default
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt 
+    cert-manager.io/issuer: letsencrypt 
+    nginx.ingress.kubernetes.io/force-ssl-redirect: true
 spec:
   ingressClassName: nginx
   rules:
     - host: api.rejdeboer.com
       http:
         paths:
-          - path: /sync
-            pathType: Prefix
-            backend:
-              service:
-                name: multiplayer-websocket
-                port:
-                  number: 80
+          # - path: /sync
+          #   pathType: Prefix
+          #   backend:
+          #     service:
+          #       name: multiplayer-websocket
+          #       port:
+          #         number: 80
           - path: /
             pathType: Prefix
             backend:
@@ -26,6 +27,6 @@ spec:
                 port:
                   number: 80
   tls:
-    - secretName: letsencrypt-nginx
+    - secretName: letsencrypt-nginx-tls
       hosts:
         - api.rejdeboer.com

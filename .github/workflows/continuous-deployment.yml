@@ -97,9 +97,9 @@ jobs:
         id: install-kubectl
         uses: azure/setup-kubectl@v3
 
-      - name: Run kubectl pre-deployment scripts
-        run: |
-          ./scripts/install-eck.sh
+      # - name: Run kubectl pre-deployment scripts
+      #   run: |
+      #     ./scripts/install-eck.sh
 
       - name: Verify cluster reconciliation
         run: |
