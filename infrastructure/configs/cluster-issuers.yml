@@ -12,8 +12,8 @@ spec:
       name: issuer-account-key
     solvers:
       - selector:
-        dnsZones:
-          - 'rejdeboer.com'
+          dnsZones:
+            - 'rejdeboer.com'
         dns01:
           cnameStrategy: Follow
           cloudflare:
