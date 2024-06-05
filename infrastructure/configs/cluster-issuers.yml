@@ -14,7 +14,7 @@ spec:
       # - selector:
       #     dnsZones:
       #       - 'rejdeboer.com'
-        - dns01:
+      - dns01:
           # cnameStrategy: Follow
           cloudflare:
             apiTokenSecretRef:
