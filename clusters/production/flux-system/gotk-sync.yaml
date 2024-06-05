@@ -8,7 +8,7 @@ metadata:
 spec:
   interval: 1m0s
   ref:
-    branch: feature/ingress-nginx-tls
+    branch: master
   secretRef:
     name: flux-system
   url: ssh://git@github.com/rejdeboer/multiplayer-deployment.git
