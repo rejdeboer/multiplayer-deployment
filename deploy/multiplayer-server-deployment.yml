@@ -25,7 +25,9 @@ spec:
     metadata:
       labels:
         app: multiplayer-server
+        azure.workload.identity/use: true
     spec:
+      serviceAccountName: workload-identity-sa
       containers:
         - name: multiplayer-server
           image: rejdeboer.azurecr.io/multiplayer-server:d628003e3198a4b5eba2926003cc8014b4dd39b6
@@ -74,6 +76,8 @@ spec:
               value: "kafka-cluster-kafka-bootstrap:9200"
             - name: ELASTICSEARCH_ENDPOINT
               value: "https://elastic-cluster-es-http.default.SVC:9200"
+            - name: AZ_BLOB_STORAGE_ENDPOINT
+              value: https://rejdeboerprd.blob.core.windows.net/
       volumes:
         - name: az-root-certificate
           configMap:
