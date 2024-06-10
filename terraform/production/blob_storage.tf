@@ -9,7 +9,7 @@ resource "azurerm_storage_account" "this" {
 resource "azurerm_storage_container" "user_images" {
   name                  = "user-images"
   storage_account_name  = azurerm_storage_account.this.name
-  container_access_type = "private"
+  container_access_type = "public"
 }
 
 resource "azurerm_role_assignment" "blob_contributor" {
