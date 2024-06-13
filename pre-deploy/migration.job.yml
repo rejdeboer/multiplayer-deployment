@@ -24,10 +24,10 @@ spec:
             export DATABASE_URL="postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}?sslmode=verify-full&sslrootcert=/mnt/certificates/az-root.pem"
             migrate -database "${DATABASE_URL}" -path=db/migrations up
             echo "Migration finished"
-        volumeMounts:
-          - name: az-root-certificate
-            mountPath: "/mnt/certificates"
-            readOnly: true
+        # volumeMounts:
+        #   - name: az-root-certificate
+        #     mountPath: "/mnt/certificates"
+        #     readOnly: true
         env:
           - name: DB_HOST
             value: multiplayer-server.postgres.database.azure.com
@@ -36,16 +36,17 @@ spec:
           - name: DB_NAME
             value: multiplayer-server
           - name: DB_USER
-            valueFrom:
-              secretKeyRef:
-                name: multiplayer-server-secrets
-                key: postgres-username
-          - name: DB_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: multiplayer-server-secrets
-                key: postgres-password
-      volumes:
-        - name: az-root-certificate
-          configMap:
-            name: az-root-certificate
+            value: multiplayer-server-aks
+            # valueFrom:
+            #   secretKeyRef:
+            #     name: multiplayer-server-secrets
+            #     key: postgres-username
+          # - name: DB_PASSWORD
+          #   valueFrom:
+          #     secretKeyRef:
+          #       name: multiplayer-server-secrets
+          #       key: postgres-password
+      # volumes:
+      #   - name: az-root-certificate
+      #     configMap:
+      #       name: az-root-certificate
