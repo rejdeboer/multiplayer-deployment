@@ -16,6 +16,12 @@ resource "azurerm_postgresql_flexible_server" "this" {
   administrator_login    = random_string.postgres_username.result
   administrator_password = random_password.postgres_password.result
   version                = "16"
+
+  authentication {
+    active_directory_auth_enabled = "true"
+    password_auth_enabled         = "true"
+    tenant_id                     = data.azurerm_client_config.current.tenant_id
+  }
 }
 
 resource "azurerm_postgresql_flexible_server_database" "this" {
@@ -64,4 +70,13 @@ resource "azurerm_private_dns_zone_virtual_network_link" "db" {
   virtual_network_id    = azurerm_virtual_network.this.id
   resource_group_name   = azurerm_resource_group.resource_group.name
   depends_on            = [azurerm_subnet.db]
+}
+
+resource "azurerm_postgresql_flexible_server_active_directory_administrator" "aks" {
+  server_name         = azurerm_postgresql_flexible_server.this.name
+  resource_group_name = azurerm_resource_group.resource_group.name
+  tenant_id           = data.azurerm_client_config.current.tenant_id
+  object_id           = azurerm_user_assigned_identity.aks.principal_id
+  principal_name      = azurerm_user_assigned_identity.aks.name
+  principal_type      = "ServicePrincipal"
 }
