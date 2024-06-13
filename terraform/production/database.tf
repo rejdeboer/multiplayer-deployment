@@ -16,6 +16,12 @@ resource "azurerm_postgresql_flexible_server" "this" {
   administrator_login    = random_string.postgres_username.result
   administrator_password = random_password.postgres_password.result
   version                = "16"
+
+  authentication {
+    active_directory_auth_enabled = "true"
+    password_auth_enabled         = "true"
+    tenant_id                     = data.azurerm_client_config.current.tenant_id
+  }
 }
 
 resource "azurerm_postgresql_flexible_server_database" "this" {
