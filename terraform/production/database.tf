@@ -65,3 +65,12 @@ resource "azurerm_private_dns_zone_virtual_network_link" "db" {
   resource_group_name   = azurerm_resource_group.resource_group.name
   depends_on            = [azurerm_subnet.db]
 }
+
+resource "azurerm_postgresql_flexible_server_active_directory_administrator" "aks" {
+  server_name         = azurerm_postgresql_flexible_server.this.name
+  resource_group_name = azurerm_resource_group.resource_group.name
+  tenant_id           = data.azurerm_client_config.current.tenant_id
+  object_id           = azurerm_user_assigned_identity.aks.principal_id
+  principal_name      = azurerm_user_assigned_identity.aks.name
+  principal_type      = "ServicePrincipal"
+}
