@@ -21,13 +21,13 @@ spec:
             echo "Starting migration"
             apk --no-cache add postgresql-client
             CGO_ENABLED=0 GOOS=linux go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
-            export DATABASE_URL="postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}"
+            export DATABASE_URL="postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}?sslmode=verify-full&sslrootcert=/mnt/certificates/az-root.pem"
             migrate -database "${DATABASE_URL}" -path=db/migrations up
             echo "Migration finished"
-        # volumeMounts:
-        #   - name: az-root-certificate
-        #     mountPath: "/mnt/certificates"
-        #     readOnly: true
+        volumeMounts:
+          - name: az-root-certificate
+            mountPath: "/mnt/certificates"
+            readOnly: true
         env:
           - name: DB_HOST
             value: multiplayer-server.postgres.database.azure.com
@@ -36,17 +36,16 @@ spec:
           - name: DB_NAME
             value: multiplayer-server
           - name: DB_USER
-            value: multiplayer-server-aks
-            # valueFrom:
-            #   secretKeyRef:
-            #     name: multiplayer-server-secrets
-            #     key: postgres-username
-          # - name: DB_PASSWORD
-          #   valueFrom:
-          #     secretKeyRef:
-          #       name: multiplayer-server-secrets
-          #       key: postgres-password
-      # volumes:
-      #   - name: az-root-certificate
-      #     configMap:
-      #       name: az-root-certificate
+            valueFrom:
+              secretKeyRef:
+                name: multiplayer-server-secrets
+                key: postgres-username
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: multiplayer-server-secrets
+                key: postgres-password
+      volumes:
+        - name: az-root-certificate
+          configMap:
+            name: az-root-certificate
