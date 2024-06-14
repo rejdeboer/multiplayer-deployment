@@ -13,22 +13,14 @@ spec:
       restartPolicy: Never
       containers:
       - name: migration
-        image: rejdeboer.azurecr.io/multiplayer-server:ff41531f56e056c56fd826c57ef8f362a65bf7fc
-        command:
-          - /bin/sh
-          - -c
-          - |
-            echo "Starting migration"
-            apk --no-cache add postgresql-client
-            CGO_ENABLED=0 GOOS=linux go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
-            export DATABASE_URL="postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}?sslmode=verify-full&sslrootcert=/mnt/certificates/az-root.pem"
-            migrate -database "${DATABASE_URL}" -path=db/migrations up
-            echo "Migration finished"
+        image: rejdeboer.azurecr.io/multiplayer-db-migration:ff41531f56e056c56fd826c57ef8f362a65bf7fc
         volumeMounts:
           - name: az-root-certificate
             mountPath: "/mnt/certificates"
             readOnly: true
         env:
+          - name: ENVIRONMENT
+            value: production
           - name: DB_HOST
             value: multiplayer-server.postgres.database.azure.com
           - name: DB_PORT
@@ -36,15 +28,17 @@ spec:
           - name: DB_NAME
             value: multiplayer-server
           - name: DB_USER
-            valueFrom:
-              secretKeyRef:
-                name: multiplayer-server-secrets
-                key: postgres-username
-          - name: DB_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: multiplayer-server-secrets
-                key: postgres-password
+            value: multiplayer-server-aks
+          # - name: DB_USER
+          #   valueFrom:
+          #     secretKeyRef:
+          #       name: multiplayer-server-secrets
+          #       key: postgres-username
+          # - name: DB_PASSWORD
+          #   valueFrom:
+          #     secretKeyRef:
+          #       name: multiplayer-server-secrets
+          #       key: postgres-password
       volumes:
         - name: az-root-certificate
           configMap:
