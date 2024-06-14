@@ -13,7 +13,7 @@ spec:
       restartPolicy: Never
       containers:
       - name: migration
-        image: rejdeboer.azurecr.io/multiplayer-db-migration:3024463dced64f7601848dcc405cf9de9a49acbe
+        image: rejdeboer.azurecr.io/multiplayer-db-migration:7057bba6481fbef51a184cd6b5ee694321d94c2e
         volumeMounts:
           - name: az-root-certificate
             mountPath: "/mnt/certificates"
