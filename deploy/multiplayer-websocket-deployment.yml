@@ -30,7 +30,7 @@ spec:
       serviceAccountName: workload-identity-sa
       containers:
         - name: multiplayer-websocket
-          image: rejdeboer.azurecr.io/multiplayer-websocket:3024463dced64f7601848dcc405cf9de9a49acbe
+          image: rejdeboer.azurecr.io/multiplayer-websocket:7057bba6481fbef51a184cd6b5ee694321d94c2e
           resources:
             requests:
               memory: "256Mi"
