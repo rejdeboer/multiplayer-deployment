@@ -16,7 +16,8 @@ spec:
         image: rejdeboer.azurecr.io/multiplayer-db-migration:6a38e6939dd7e8ed776a40d42fd004028f88c4a3
         volumeMounts:
           - name: az-root-certificate
-            mountPath: "/mnt/certificates"
+            mountPath: /etc/ssl/certs
+            subPath: az-root.pem
             readOnly: true
         env:
           - name: ENVIRONMENT
