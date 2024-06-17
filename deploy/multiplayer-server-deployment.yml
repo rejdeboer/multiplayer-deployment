@@ -41,9 +41,10 @@ spec:
           ports:
             - containerPort: 8000
           volumeMounts:
-          - name: az-root-certificate
-            mountPath: "/mnt/certificates"
-            readOnly: true
+            - name: az-root-certificate
+              mountPath: /etc/ssl/certs
+              subPath: az-root.pem
+              readOnly: true
           env:
             - name: ENVIRONMENT
               value: production
@@ -65,8 +66,8 @@ spec:
                 secretKeyRef:
                   name: multiplayer-server-secrets
                   key: postgres-password
-            - name: DB_CERTIFICATE_PATH
-              value: "/mnt/certificates/az-root.pem"
+            # - name: DB_CERTIFICATE_PATH
+            #   value: "/mnt/certificates/az-root.pem"
             - name: JWT_SECRET_KEY
               valueFrom:
                 secretKeyRef:
