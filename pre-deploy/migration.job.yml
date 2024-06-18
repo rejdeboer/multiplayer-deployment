@@ -28,7 +28,7 @@ spec:
             value: "5432"
           - name: DB_NAME
             value: multiplayer-server
-          - name: DB_USER
+          - name: DB_USERNAME
             value: multiplayer-server-aks
           # - name: DB_USER
           #   valueFrom:
