@@ -14,11 +14,11 @@ spec:
       containers:
       - name: migration
         image: rejdeboer.azurecr.io/multiplayer-db-migration:5df0ca9ee2d70c3add387ed0ee631215a5b066e4
-        volumeMounts:
-          - name: az-root-certificate
-            mountPath: /etc/ssl/certs
-            subPath: az-root.pem
-            readOnly: true
+        # volumeMounts:
+        #   - name: az-root-certificate
+        #     mountPath: /etc/ssl/certs
+        #     subPath: az-root.pem
+        #     readOnly: true
         env:
           - name: ENVIRONMENT
             value: production
