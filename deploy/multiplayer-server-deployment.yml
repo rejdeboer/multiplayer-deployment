@@ -30,7 +30,7 @@ spec:
       serviceAccountName: workload-identity-sa
       containers:
         - name: multiplayer-server
-          image: rejdeboer.azurecr.io/multiplayer-server:7057bba6481fbef51a184cd6b5ee694321d94c2e
+          image: rejdeboer.azurecr.io/multiplayer-server:5df0ca9ee2d70c3add387ed0ee631215a5b066e4
           resources:
             requests:
               memory: "256Mi"
