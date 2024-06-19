@@ -40,11 +40,6 @@ spec:
               cpu: "500m"
           ports:
             - containerPort: 8000
-          volumeMounts:
-            - name: az-root-certificate
-              mountPath: /etc/ssl/certs
-              subPath: az-root.pem
-              readOnly: true
           env:
             - name: ENVIRONMENT
               value: production
@@ -57,17 +52,7 @@ spec:
             - name: DB_HOST
               value: "multiplayer-server.postgres.database.azure.com"
             - name: DB_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: multiplayer-server-secrets
-                  key: postgres-username
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: multiplayer-server-secrets
-                  key: postgres-password
-            # - name: DB_CERTIFICATE_PATH
-            #   value: "/mnt/certificates/az-root.pem"
+              value: multiplayer-server-aks
             - name: JWT_SECRET_KEY
               valueFrom:
                 secretKeyRef:
@@ -79,7 +64,3 @@ spec:
               value: "https://elastic-cluster-es-http.default.SVC:9200"
             - name: AZ_BLOB_STORAGE_ENDPOINT
               value: https://rejdeboerprd.blob.core.windows.net/
-      volumes:
-        - name: az-root-certificate
-          configMap:
-            name: az-root-certificate

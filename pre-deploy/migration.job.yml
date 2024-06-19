@@ -14,11 +14,6 @@ spec:
       containers:
       - name: migration
         image: rejdeboer.azurecr.io/multiplayer-db-migration:4fa33a6581c1383da35d95cb9d1bdabd245721d1
-        # volumeMounts:
-        #   - name: az-root-certificate
-        #     mountPath: /etc/ssl/certs
-        #     subPath: az-root.pem
-        #     readOnly: true
         env:
           - name: ENVIRONMENT
             value: production
@@ -30,17 +25,3 @@ spec:
             value: multiplayer-server
           - name: DB_USERNAME
             value: multiplayer-server-aks
-          # - name: DB_USER
-          #   valueFrom:
-          #     secretKeyRef:
-          #       name: multiplayer-server-secrets
-          #       key: postgres-username
-          # - name: DB_PASSWORD
-          #   valueFrom:
-          #     secretKeyRef:
-          #       name: multiplayer-server-secrets
-          #       key: postgres-password
-      volumes:
-        - name: az-root-certificate
-          configMap:
-            name: az-root-certificate
