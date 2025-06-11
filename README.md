@@ -1,4 +1,4 @@
-# Multiplayer server deployment
+# Collaborative text editing server deployment
 
 This project is a collection of terraform files and kubernetes manifests for deploying a [collaborative text editing application](https://github.com/rejdeboer/multiplayer-server) to Azure.
 It supports the following features:
